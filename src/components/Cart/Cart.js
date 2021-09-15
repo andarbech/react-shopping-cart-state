@@ -15,7 +15,6 @@ function Cart({ cartItems, handleRemove, handleChange, ...props }) {
           <h2 className="h3 mt-2">Shopping Cart</h2>
           <hr className="mb-3" />
         </div>
-
         {cartItems.length > 0 ? (
           cartItems.map((item) => (
             <ShoppingCartItem

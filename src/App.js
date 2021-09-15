@@ -30,7 +30,40 @@ class App extends Component {
     });
   }
 
-  // handleAddToCart(productId) {}
+
+  handleAddToCart(productId) {
+    const { cartItems, products } = this.state;
+    console.log(this.state)
+
+    const prevCartItem = cartItems.find((item) => item.id === productId);
+    const foundProduct = products.find((product) => product.id === productId);
+
+    if (prevCartItem) {
+      const updatedCartItems = cartItems.map((item) => {
+        if (item.id !== productId) {
+          return item;
+        }
+
+        if (item.quantity >= item.unitsInStock) {
+          return item;
+        }
+
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      });
+
+      this.setState({ cartItems: updatedCartItems });
+      return;
+    }
+
+  const updatedProduct = buildNewCartItem(foundProduct);
+    this.setState((prevState) => ({
+      cartItems: [...prevState.cartItems, updatedProduct],
+    })) ;
+  }
+  
 
   // handleChange(event, productId) {}
 
@@ -41,8 +74,7 @@ class App extends Component {
   // handleUpVote(productId) {}
 
   // handleSetFavorite(productId) {}
-
-  render() {
+  render(){
     const {
       cartItems,
       products,
@@ -68,5 +100,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
